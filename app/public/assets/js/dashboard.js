@@ -64,6 +64,9 @@ const dashboard = createApp({
                 if (this.balance.owedMoney >= this.balance.requestedMoney) {
                     this.balance.owedMoney -= this.balance.requestedMoney;
                     this.balance.requestedMoney = 0;
+                } else{
+                    this.balance.requestedMoney -= this.balance.owedMoney;
+                    this.balance.owedMoney = 0;
                 }
             } else {
                 this.error = 'User does not exist';
