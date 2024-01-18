@@ -160,7 +160,7 @@ expenses_data = [
 #deleteCollection("mydatabase", "transactions")
 #deleteCollection("mydatabase", "users")
 #filldata("mydatabase", "users", users_data)
-filldata("mydatabase", "expenses", expenses_data)
+#filldata("mydatabase", "expenses", expenses_data)
 
 #deleteUser("mydatabase", "users", "adsfasdf")
 # List all databases

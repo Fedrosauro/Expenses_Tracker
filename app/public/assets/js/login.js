@@ -62,6 +62,10 @@ const login = createApp({
                 }
             }
         },
+        changeSection(){
+          this.showSignInSection = false;
+          this.error = '';
+        },
         resetValues() {
             this.error = '';
             this.username = '';
@@ -72,4 +76,3 @@ const login = createApp({
         }
     },
 }).mount("#login");
-

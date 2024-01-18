@@ -118,7 +118,7 @@ const dashboard = createApp({
                 fetch("/api/users/").then(response => response.json())
             ]);
 
-            const { description, category, totalAmount, partecipants } = this.selectedExpense[0];
+            const { description, category, totalAmount, partecipants } = this.selectedExpense.expenses[0];
             this.descr = description;
             this.categ = category;
             this.totAm = totalAmount;
@@ -195,9 +195,9 @@ const dashboard = createApp({
             this.error = '';
             if (step === 1) {
                 if (this.addSectionNumber === 0 && !(/^[1-9]\d*$/).test(this.year)) {
-                    this.error = 'Year is not correct';
+                    this.error = 'Year inserted is not valid';
                 } else if (this.addSectionNumber === 1 && (parseInt(this.month) < 1 || parseInt(this.month) > 12 || !(/^[1-9]\d*$/).test(this.month))) {
-                    this.error = 'Month is not correct';
+                    this.error = 'Month must be a number between 1 and 12';
                 } else if (this.addSectionNumber === 2 && this.descr === '') {
                     this.error = "Description can't be empty";
                 } else if (this.addSectionNumber === 3 && this.categ === '') {
@@ -210,7 +210,7 @@ const dashboard = createApp({
             if (this.error === '') {
                 this.addSectionNumber += step;
                 this.addSectionNumber = this.addSectionNumber === -1 ? 0 : this.addSectionNumber;
-                this.showFinishButton = this.addSectionNumber === 5;
+                this.showFinishButton = this.addSectionNumber === 6;
 
                 if (this.addSectionNumber === 5) {
                     let loggedUser = await fetch("/api/budget/whoami").then(response => response.json());

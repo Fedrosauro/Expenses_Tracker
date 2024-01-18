@@ -38,14 +38,19 @@
     <div id="dashboard">
       <div v-if="!showForbiddenSection">
         <div class="d-flex flex-column sidebar">
-          <img src="assets/images/main_logo.png" />
+          <div style="height: 50px">
+            <img
+              src="assets/images/main_logo.png"
+              style="max-width: 100%; max-height: 100%"
+            />
+          </div>
           <button
             type="button"
             class="sidebar-button mt-4 d-flex align-items-center justify-content-center"
             @click="resetEverything()"
           >
             <span class="material-symbols-outlined"> home </span>
-            &nbsp;Budgets
+            <label class="sidebar-text">Budgets</label>
           </button>
           <button
             type="button"
@@ -53,7 +58,7 @@
             @click="getBalanceSection()"
           >
             <span class="material-symbols-outlined"> balance </span>
-            &nbsp;Balance
+            <label class="sidebar-text">Balance</label>
           </button>
           <button
             type="button"
@@ -61,7 +66,7 @@
             @click="getAboutMeSection()"
           >
             <span class="material-symbols-outlined"> person </span>
-            &nbsp;About me
+            <label class="sidebar-text">About me</label>
           </button>
           <button
             type="button"
@@ -69,7 +74,7 @@
             @click="performLogout()"
           >
             <span class="material-symbols-outlined"> logout </span>
-            &nbsp;Logout
+            <label class="sidebar-text">Logout</label>
           </button>
         </div>
 
@@ -77,28 +82,30 @@
           v-if="showBudgetsSection"
           class="d-flex flex-column sidebar-margin"
         >
-          <div class="row searchbar">
-            <button
-              type="button"
-              class="col col-md-auto add-button d-flex align-items-center py-3"
-              @click="addNewExpense()"
-            >
-              <span class="material-symbols-outlined">add</span>
-              &nbsp;&nbsp; Add Expense
-            </button>
-            <select
-              name="search_type"
-              v-model="searchOption"
-              @change="resetSearchValues()"
-              class="col mx-2 col-md-auto normal-button"
-            >
-              <option value="Query">Query</option>
-              <option value="Year">Year</option>
-              <option value="Year-Month">Year-Month</option>
-              <option value="Year-Month-ID">Year-Month-ID</option>
-            </select>
+          <div class="d-flex searchbar-bg">
+            <div class="d-flex justify-content-center">
+              <button
+                type="button"
+                class="col col-md-auto add-button d-flex justify-content-center align-items-center py-3"
+                @click="addNewExpense()"
+              >
+                <span class="material-symbols-outlined">add</span>
+                &nbsp;&nbsp; Add Expense
+              </button>
+              <select
+                name="search_type"
+                v-model="searchOption"
+                @change="resetSearchValues()"
+                class="col mx-2 col-md-auto normal-button"
+              >
+                <option value="Query">Query</option>
+                <option value="Year">Year</option>
+                <option value="Year-Month">Year-Month</option>
+                <option value="Year-Month-ID">Year-Month-ID</option>
+              </select>
+            </div>
 
-            <form id="search_form" class="col row search-form">
+            <form id="search_form" class="col row searchbar-margin">
               <input
                 type="text"
                 v-model="query"
@@ -161,7 +168,10 @@
                       <b>{{expense._id}}</b>
                     </div>
                   </td>
-                  <td class="text-center" style="color: rgb(139, 139, 139)">
+                  <td
+                    class="text-center"
+                    style="color: rgb(139, 139, 139); padding: 10px"
+                  >
                     {{expense.date}}
                   </td>
                   <td>
@@ -170,7 +180,10 @@
                   <td>
                     <div class="text-container">{{expense.category}}</div>
                   </td>
-                  <td class="text-center" style="font-size: 25px; font-weight:700;">
+                  <td
+                    class="text-center"
+                    style="font-size: 25px; font-weight: 700"
+                  >
                     <b>{{expense.totalAmount}} &euro;</b>
                   </td>
                   <td class="text-center">
@@ -382,6 +395,40 @@
                 </button>
               </div>
             </div>
+            <div v-if="addSectionNumber === 6">
+              <h4 style="margin-bottom: 30px">Expense Resume</h4>
+              <div class="text-container-style">
+                <label>Date:&nbsp;&nbsp;</label>
+                {{year}}-{{month}}<br /><br />
+                <label>Description:&nbsp;&nbsp;</label>
+                {{descr}}<br /><br />
+                <label>Category:&nbsp;&nbsp;</label>
+                {{categ}}<br /><br />
+                <label>Total Amount:&nbsp;&nbsp;</label>
+                {{totAm}} &euro;<br /><br />
+                <div class="d-flex">
+                  <div>
+                    <label>Partecipants:</label><br />
+                    <div
+                      v-for="(user, index) in partec"
+                      :key="index"
+                      style="margin-top: 20px"
+                    >
+                      <div class="d-flex justify-content-center w-100">
+                        <div
+                          class="d-flex align-items-center p-3 partecipants-list-style"
+                        >
+                          <div style="font-size: 17px">
+                            username:&nbsp;&nbsp;<b>{{user.username}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;share:&nbsp;&nbsp;
+                            <b>{{user.share}}&nbsp;&euro;</b>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div style="margin-top: 30px">
               <button
                 type="button"
@@ -401,7 +448,7 @@
               </button>
               <button
                 type="button"
-                class="normal-button"
+                class="blue-button"
                 @click="completeAddition()"
                 v-if="showFinishButton"
               >
@@ -622,8 +669,8 @@
               {{selectedExpense.expenses[0].category}}<br /><br />
               <label>Total Amount:&nbsp;&nbsp;</label>
               {{selectedExpense.expenses[0].totalAmount}} &euro;<br /><br />
-              <div class="d-flex">
-                <div>
+              <div class="d-flex flex-row justify-content-center">
+                <div class="border-end pe-5">
                   <label>Partecipants:</label><br />
                   <div
                     v-for="(user, index) in selectedExpense.expenses[0].partecipants"
@@ -633,6 +680,7 @@
                     <div class="d-flex justify-content-center w-100">
                       <div
                         class="d-flex align-items-center p-3 partecipants-list-style"
+                        style="background-color: #bbffc5"
                       >
                         <div style="font-size: 17px">
                           username:&nbsp;&nbsp;<b>{{user.username}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;share:&nbsp;&nbsp;
@@ -643,7 +691,7 @@
                   </div>
                 </div>
                 <div style="margin-left: 50px">
-                  <label>Refounds:</label><br />
+                  <label>Refunds:</label><br />
                   <div
                     v-for="(refound, index) in selectedExpense.refounds"
                     :key="index"
@@ -652,6 +700,7 @@
                     <div class="d-flex justify-content-center w-100">
                       <div
                         class="d-flex align-items-center p-3 partecipants-list-style"
+                        style="background-color: #ffe2e2"
                       >
                         <div style="font-size: 17px">
                           From:&nbsp;&nbsp;<b>{{refound.From}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;To:&nbsp;&nbsp;<b>{{refound.To}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Amount:&nbsp;&nbsp;<b
