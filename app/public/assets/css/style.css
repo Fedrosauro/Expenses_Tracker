@@ -186,8 +186,7 @@ td {
 
 .styled-input {
     padding: 10px;
-    padding-left: 20px;
-    border-radius: 5px;
+    border-radius: 15px;
 }
 
 .bigger-font-22 {
@@ -237,12 +236,11 @@ td {
 }
 
 .text-container-style {
-    margin-left: 30px;
     font-size: 23px;
     font-weight: 500;
 }
 
-.text-container-style>label,
+.text-container-style>div>label,
 .text-container-style>div>div>label {
     font-weight: 300;
 }
@@ -287,18 +285,66 @@ td {
     }
 
     .searchbar-margin {
-        margin: 15px;
+        margin-top: 15px;
         display: flex;
         flex-direction: column;
+        align-items: center;
     }
 
-    .searchbar-style{
+    .searchbar-style {
         margin-top: 10px;
     }
 
     .search-button {
-        margin-top:10px;
+        margin-top: 10px;
         width: fit-content;
         padding: 10px !important;
     }
+
+    .main-content-cover {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .budget-table tr {
+        border-top: 2px solid #5f5f5f;
+        border-bottom: 2px solid #5f5f5f;
+    }
+
+    .budget-table td {
+        display: block;
+    }
+
+    th {
+        display: none;
+    }
+
+    .text-container-style {
+        font-size: inherit;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .balance-input {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .specificExp-style {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center;
+    }
+
+    .specificExp-style>div {
+        padding: 0px !important;
+        margin: 0px !important;
+        border: none !important;
+    }
+
+    .partecipants-list-style>div {
+        font-size: 14px;
+    }
+
 }

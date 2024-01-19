@@ -254,17 +254,22 @@
         >
           <div>
             <div class="main-content-cover">
-              <h2 style="margin-bottom: 40px; border-bottom: 1px solid #e9e9e9">
-                Personal Area
-              </h2>
               <div class="text-container-style">
-                <label>Username:&nbsp;&nbsp;</label
-                >{{currentUser.username}}<br /><br />
-                <label>Name:&nbsp;&nbsp;</label>{{currentUser.name}}<br /><br />
-                <label>Surname:&nbsp;&nbsp;</label
-                >{{currentUser.surname}}<br /><br />
-                <label>Password:&nbsp;&nbsp;</label
-                >{{currentUser.password}}<br /><br />
+                <h2
+                  style="margin-bottom: 40px; border-bottom: 1px solid #e9e9e9"
+                >
+                  Personal Area
+                </h2>
+                <div>
+                  <label>Username:&nbsp;&nbsp;</label>{{currentUser.username}}
+                </div>
+                <div><label>Name:&nbsp;&nbsp;</label>{{currentUser.name}}</div>
+                <div>
+                  <label>Surname:&nbsp;&nbsp;</label>{{currentUser.surname}}
+                </div>
+                <div>
+                  <label>Password:&nbsp;&nbsp;</label>{{currentUser.password}}
+                </div>
               </div>
             </div>
           </div>
@@ -284,49 +289,59 @@
 
           <div class="main-content-cover d-flex flex-column">
             <div v-if="addSectionNumber === 0">
-              <h4 style="margin-bottom: 30px">Insert Year</h4>
-              <input
-                type="text"
-                class="form-control styled-input d-flex justify-content-center"
-                v-model="year"
-                placeholder="year"
-              />
+              <div class="d-flex flex-column">
+                <h4 style="margin-bottom: 30px">Insert Year</h4>
+                <input
+                  type="text"
+                  class="form-control styled-input d-flex justify-content-center"
+                  v-model="year"
+                  placeholder="year"
+                />
+              </div>
             </div>
             <div v-if="addSectionNumber === 1">
-              <h4 style="margin-bottom: 30px">Month</h4>
-              <input
-                type="text"
-                class="form-control styled-input d-flex justify-content-center"
-                v-model="month"
-                placeholder="month"
-              />
+              <div class="d-flex flex-column">
+                <h4 style="margin-bottom: 30px">Month</h4>
+                <input
+                  type="text"
+                  class="form-control styled-input d-flex justify-content-center"
+                  v-model="month"
+                  placeholder="month"
+                />
+              </div>
             </div>
             <div v-if="addSectionNumber === 2">
-              <h4 style="margin-bottom: 30px">Description</h4>
-              <input
-                type="text"
-                class="form-control styled-input d-flex justify-content-center"
-                v-model="descr"
-                placeholder="description"
-              />
+              <div class="d-flex flex-column">
+                <h4 style="margin-bottom: 30px">Description</h4>
+                <input
+                  type="text"
+                  class="form-control styled-input d-flex justify-content-center"
+                  v-model="descr"
+                  placeholder="description"
+                />
+              </div>
             </div>
             <div v-if="addSectionNumber === 3">
-              <h4 style="margin-bottom: 30px">Category</h4>
-              <input
-                type="text"
-                class="form-control styled-input d-flex justify-content-center"
-                v-model="categ"
-                placeholder="category"
-              />
+              <div class="d-flex flex-column">
+                <h4 style="margin-bottom: 30px">Category</h4>
+                <input
+                  type="text"
+                  class="form-control styled-input d-flex justify-content-center"
+                  v-model="categ"
+                  placeholder="category"
+                />
+              </div>
             </div>
             <div v-if="addSectionNumber === 4">
-              <h4 style="margin-bottom: 30px">Total Amount</h4>
-              <input
-                type="text"
-                class="form-control styled-input d-flex justify-content-center"
-                v-model="totAm"
-                placeholder="total amount"
-              />
+              <div class="d-flex flex-column">
+                <h4 style="margin-bottom: 30px">Total Amount</h4>
+                <input
+                  type="text"
+                  class="form-control styled-input d-flex justify-content-center"
+                  v-model="totAm"
+                  placeholder="total amount"
+                />
+              </div>
             </div>
             <div v-if="addSectionNumber === 5">
               <h4 style="margin-bottom: 30px">Partecipants</h4>
@@ -363,8 +378,8 @@
                   type="text"
                   class="form-control styled-input"
                   v-model="newUsername"
+                  style="margin-right: 20px"
                   list="usernamesss"
-                  style="width: 17%; margin-right: 24px"
                   placeholder="Partecipant"
                 />
                 <datalist id="usernamesss">
@@ -379,7 +394,7 @@
                   type="text"
                   class="form-control styled-input"
                   v-model="newShare"
-                  style="width: 17%; margin-right: 24px"
+                  style="margin-right: 20px"
                   placeholder="Share"
                 />
                 <button
@@ -398,14 +413,22 @@
             <div v-if="addSectionNumber === 6">
               <h4 style="margin-bottom: 30px">Expense Resume</h4>
               <div class="text-container-style">
-                <label>Date:&nbsp;&nbsp;</label>
-                {{year}}-{{month}}<br /><br />
-                <label>Description:&nbsp;&nbsp;</label>
-                {{descr}}<br /><br />
-                <label>Category:&nbsp;&nbsp;</label>
-                {{categ}}<br /><br />
-                <label>Total Amount:&nbsp;&nbsp;</label>
-                {{totAm}} &euro;<br /><br />
+                <div>
+                  <label>Date:&nbsp;&nbsp;</label>
+                  {{year}}-{{month}}
+                </div>
+                <div>
+                  <label>Description:&nbsp;&nbsp;</label>
+                  {{descr}}
+                </div>
+                <div>
+                  <label>Category:&nbsp;&nbsp;</label>
+                  {{categ}}
+                </div>
+                <div>
+                  <label>Total Amount:&nbsp;&nbsp;</label>
+                  {{totAm}} &euro;
+                </div>
                 <div class="d-flex">
                   <div>
                     <label>Partecipants:</label><br />
@@ -534,8 +557,8 @@
                 type="text"
                 class="form-control styled-input"
                 v-model="newUsername"
+                style="margin-right: 20px"
                 list="usernamesss"
-                style="width: 17%; margin-right: 24px"
                 placeholder="Partecipant"
               />
               <datalist id="usernamesss">
@@ -550,7 +573,7 @@
                 type="text"
                 class="form-control styled-input"
                 v-model="newShare"
-                style="width: 17%; margin-right: 24px"
+                style="margin-right: 20px"
                 placeholder="Share"
               />
               <button
@@ -592,33 +615,43 @@
           class="d-flex flex-column sidebar-margin"
         >
           <div class="main-content-cover">
-            <h2 style="margin-bottom: 40px; border-bottom: 1px solid #e9e9e9">
-              Personal Balance
-            </h2>
             <div class="text-container-style">
+              <h2 style="margin-bottom: 40px; border-bottom: 1px solid #e9e9e9">
+                Personal Balance
+              </h2>
               <p style="font-size: 30px">
                 Overall
                 Balance:&nbsp;&nbsp;<b>{{balance.overallBalance}}</b>&nbsp;&euro;
               </p>
-              <label>Money Spent:&nbsp;&nbsp;</label
-              >{{balance.moneySpent}}&nbsp;&euro;<br /><br />
-              <label>Money Received:&nbsp;&nbsp;</label
-              >{{balance.moneyReceived}}&nbsp;&euro;<br /><br />
-              <label>Owed money:&nbsp;&nbsp;</label
-              >{{balance.owedMoney}}&nbsp;&euro;<br /><br />
-              <label>Requested money:&nbsp;&nbsp;</label
-              >{{balance.requestedMoney}}&nbsp;&euro;<br /><br />
+              <div>
+                <label>Money Spent:&nbsp;&nbsp;</label
+                >{{balance.moneySpent}}&nbsp;&euro;
+              </div>
+              <div>
+                <label>Money Received:&nbsp;&nbsp;</label
+                >{{balance.moneyReceived}}&nbsp;&euro;
+              </div>
+              <div>
+                <label>Owed money:&nbsp;&nbsp;</label
+                >{{balance.owedMoney}}&nbsp;&euro;
+              </div>
+              <div>
+                <label>Requested money:&nbsp;&nbsp;</label
+                >{{balance.requestedMoney}}&nbsp;&euro;
+              </div>
             </div>
 
-            <div
-              class="d-flex flex-row justify-content-start align-items-center"
-            >
+            <div class="d-flex balance-input">
               <input
                 type="text"
                 class="form-control styled-input"
                 v-model="newUsername"
                 list="usernames"
-                style="width: 17%; margin-right: 24px"
+                style="
+                  margin-right: 20px;
+                  margin-bottom: 20px;
+                  margin-top: 20px;
+                "
                 placeholder="username"
               />
               <datalist id="usernames">
@@ -654,22 +687,32 @@
           class="d-flex flex-column sidebar-margin"
         >
           <div class="main-content-cover">
-            <h2 style="margin-bottom: 40px; border-bottom: 1px solid #e9e9e9">
-              Expense -
-              <label class="fw-light" style="color: #505050"
-                >{{selectedExpense.expenses[0]._id}}</label
-              >
-            </h2>
             <div class="text-container-style">
-              <label>Date:&nbsp;&nbsp;</label>
-              {{selectedExpense.expenses[0].date}}<br /><br />
-              <label>Description:&nbsp;&nbsp;</label>
-              {{selectedExpense.expenses[0].description}}<br /><br />
-              <label>Category:&nbsp;&nbsp;</label>
-              {{selectedExpense.expenses[0].category}}<br /><br />
-              <label>Total Amount:&nbsp;&nbsp;</label>
-              {{selectedExpense.expenses[0].totalAmount}} &euro;<br /><br />
-              <div class="d-flex flex-row justify-content-center">
+              <h2 style="margin-bottom: 40px; border-bottom: 1px solid #e9e9e9">
+                Expense -
+                <label class="fw-light" style="color: #505050"
+                  >{{selectedExpense.expenses[0]._id}}</label
+                >
+              </h2>
+              <div>
+                <label>Date:&nbsp;&nbsp;</label>
+                {{selectedExpense.expenses[0].date}}
+              </div>
+              <div>
+                <label>Description:&nbsp;&nbsp;</label>
+                {{selectedExpense.expenses[0].description}}
+              </div>
+              <div>
+                <label>Category:&nbsp;&nbsp;</label>
+                {{selectedExpense.expenses[0].category}}
+              </div>
+              <div>
+                <label>Total Amount:&nbsp;&nbsp;</label>
+                {{selectedExpense.expenses[0].totalAmount}} &euro;
+              </div>
+              <div
+                class="d-flex flex-row justify-content-center specificExp-style"
+              >
                 <div class="border-end pe-5">
                   <label>Partecipants:</label><br />
                   <div
@@ -682,7 +725,7 @@
                         class="d-flex align-items-center p-3 partecipants-list-style"
                         style="background-color: #bbffc5"
                       >
-                        <div style="font-size: 17px">
+                        <div>
                           username:&nbsp;&nbsp;<b>{{user.username}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;share:&nbsp;&nbsp;
                           <b>{{user.share}}&nbsp;&euro;</b>
                         </div>
@@ -702,7 +745,7 @@
                         class="d-flex align-items-center p-3 partecipants-list-style"
                         style="background-color: #ffe2e2"
                       >
-                        <div style="font-size: 17px">
+                        <div>
                           From:&nbsp;&nbsp;<b>{{refound.From}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;To:&nbsp;&nbsp;<b>{{refound.To}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Amount:&nbsp;&nbsp;<b
                             >{{refound.amount}}&nbsp;&euro;</b
                           >
