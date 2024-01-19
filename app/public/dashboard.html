@@ -9,25 +9,21 @@
     <!-- Meta tag for mobile devices -->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- Custom icons and font -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet" />
     <!-- Bootstrap via CDN, custom CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
+      crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
 
     <!-- Vue,js CDN, custom JS -->
@@ -41,38 +37,33 @@
           <div style="height: 50px">
             <img
               src="assets/images/main_logo.png"
-              style="max-width: 100%; max-height: 100%"
-            />
+              style="max-width: 100%; max-height: 100%" />
           </div>
           <button
             type="button"
             class="sidebar-button mt-4 d-flex align-items-center justify-content-center"
-            @click="resetEverything()"
-          >
+            @click="resetEverything()">
             <span class="material-symbols-outlined"> home </span>
             <label class="sidebar-text">Budgets</label>
           </button>
           <button
             type="button"
             class="sidebar-button mt-4 d-flex align-items-center justify-content-center"
-            @click="getBalanceSection()"
-          >
+            @click="getBalanceSection()">
             <span class="material-symbols-outlined"> balance </span>
             <label class="sidebar-text">Balance</label>
           </button>
           <button
             type="button"
             class="sidebar-button mt-4 d-flex align-items-center justify-content-center"
-            @click="getAboutMeSection()"
-          >
+            @click="getAboutMeSection()">
             <span class="material-symbols-outlined"> person </span>
             <label class="sidebar-text">About me</label>
           </button>
           <button
             type="button"
             class="sidebar-button mt-auto mb-5 d-flex align-items-center justify-content-center"
-            @click="performLogout()"
-          >
+            @click="performLogout()">
             <span class="material-symbols-outlined"> logout </span>
             <label class="sidebar-text">Logout</label>
           </button>
@@ -80,15 +71,13 @@
 
         <div
           v-if="showBudgetsSection"
-          class="d-flex flex-column sidebar-margin"
-        >
+          class="d-flex flex-column sidebar-margin">
           <div class="d-flex searchbar-bg">
             <div class="d-flex justify-content-center">
               <button
                 type="button"
-                class="col col-md-auto add-button d-flex justify-content-center align-items-center py-3"
-                @click="addNewExpense()"
-              >
+                class="col col-md-auto main-button d-flex justify-content-center align-items-center py-3"
+                @click="addNewExpense()">
                 <span class="material-symbols-outlined">add</span>
                 &nbsp;&nbsp; Add Expense
               </button>
@@ -96,8 +85,7 @@
                 name="search_type"
                 v-model="searchOption"
                 @change="resetSearchValues()"
-                class="col mx-2 col-md-auto normal-button"
-              >
+                class="col mx-2 col-md-auto normal-button">
                 <option value="Query">Query</option>
                 <option value="Year">Year</option>
                 <option value="Year-Month">Year-Month</option>
@@ -110,35 +98,30 @@
                 type="text"
                 v-model="query"
                 v-if="shouldShowInput('Query')"
-                class="col form-control mx-2 searchbar-style"
-                placeholder="Query"
-              />
+                class="col form-control mx-2 input-searchbar-style"
+                placeholder="Query" />
               <input
                 type="text"
                 v-model="year"
                 v-if="shouldShowInput(['Year', 'Year-Month', 'Year-Month-ID'])"
-                class="col form-control mx-2 searchbar-style"
-                placeholder="YYYY"
-              />
+                class="col form-control mx-2 input-searchbar-style"
+                placeholder="YYYY" />
               <input
                 type="text"
                 v-model="month"
                 v-if="shouldShowInput(['Year-Month', 'Year-Month-ID'])"
-                class="col form-control mx-2 searchbar-style"
-                placeholder="MM"
-              />
+                class="col form-control mx-2 input-searchbar-style"
+                placeholder="MM" />
               <input
                 type="text"
                 v-model="id"
                 v-if="shouldShowInput(['Year-Month-ID'])"
-                class="col form-control mx-2 searchbar-style"
-                placeholder="ID"
-              />
+                class="col form-control mx-2 input-searchbar-style"
+                placeholder="ID" />
               <button
                 type="button"
                 @click="filterExpenses()"
-                class="col col-md-auto d-flex align-items-center px-3 search-button"
-              >
+                class="col col-md-auto d-flex align-items-center px-3 search-button">
                 <span class="material-symbols-outlined">search</span>
               </button>
             </form>
@@ -163,34 +146,32 @@
                   <td class="text-center">
                     <div
                       class="id-link"
-                      @click="openExpense(expense._id, expense.date)"
-                    >
+                      @click="openExpense(expense._id, expense.date)">
                       <b>{{expense._id}}</b>
                     </div>
                   </td>
                   <td
                     class="text-center"
-                    style="color: rgb(139, 139, 139); padding: 10px"
-                  >
+                    style="color: rgb(139, 139, 139); padding: 10px">
                     {{expense.date}}
                   </td>
                   <td>
-                    <div class="text-container">{{expense.description}}</div>
+                    <div class="desc-categ-container">
+                      {{expense.description}}
+                    </div>
                   </td>
                   <td>
-                    <div class="text-container">{{expense.category}}</div>
+                    <div class="desc-categ-container">{{expense.category}}</div>
                   </td>
                   <td
                     class="text-center"
-                    style="font-size: 25px; font-weight: 700"
-                  >
+                    style="font-size: 25px; font-weight: 700">
                     <b>{{expense.totalAmount}} &euro;</b>
                   </td>
                   <td class="text-center">
                     <div
                       v-for="(participant, index) in expense.partecipants"
-                      :key="index"
-                    >
+                      :key="index">
                       {{ participant.username }}&nbsp;&rarr;&nbsp;{{
                       participant.share }}&nbsp;&euro;<br />
                     </div>
@@ -200,16 +181,14 @@
                       <input
                         type="checkbox"
                         :checked="isSelected(expense._id)"
-                        @change="toggleExpenseId(expense._id)"
-                      />
+                        @change="toggleExpenseId(expense._id)" />
                       <div class="d-flex flex-column justify-content-between">
                         <button
                           type="button"
                           class="normal-button"
                           style="visibility: hidden; margin-top: 5px"
                           @click="modifyExpense(expense._id, expense.date)"
-                          v-if="!isSelected(expense._id)"
-                        >
+                          v-if="!isSelected(expense._id)">
                           Modify
                         </button>
                         <button
@@ -217,8 +196,7 @@
                           class="normal-button"
                           style="visibility: hidden; margin-top: 5px"
                           @click="modifyExpense(expense._id, expense.date)"
-                          v-if="!isSelected(expense._id)"
-                        >
+                          v-if="!isSelected(expense._id)">
                           Delete
                         </button>
                         <button
@@ -226,8 +204,7 @@
                           @click="modifyExpense(expense._id, expense.date)"
                           v-if="isSelected(expense._id)"
                           class="normal-button"
-                          style="margin-top: 5px"
-                        >
+                          style="margin-top: 5px">
                           Modify
                         </button>
                         <button
@@ -235,8 +212,7 @@
                           @click="deleteExpense(expense._id, expense.date)"
                           v-if="isSelected(expense._id)"
                           class="normal-button"
-                          style="margin-top: 5px"
-                        >
+                          style="margin-top: 5px">
                           Delete
                         </button>
                       </div>
@@ -250,14 +226,12 @@
 
         <div
           v-if="showAboutMeSection"
-          class="d-flex flex-column sidebar-margin"
-        >
+          class="d-flex flex-column sidebar-margin">
           <div>
             <div class="main-content-cover">
               <div class="text-container-style">
                 <h2
-                  style="margin-bottom: 40px; border-bottom: 1px solid #e9e9e9"
-                >
+                  style="margin-bottom: 40px; border-bottom: 1px solid #e9e9e9">
                   Personal Area
                 </h2>
                 <div>
@@ -279,9 +253,8 @@
           <div>
             <button
               type="button"
-              class="d-flex align-items-center p-3 add-button"
-              @click="resetEverything()"
-            >
+              class="d-flex align-items-center p-3 main-button"
+              @click="resetEverything()">
               <span class="material-symbols-outlined">arrow_back</span>
               &ThinSpace; Discard
             </button>
@@ -295,8 +268,7 @@
                   type="text"
                   class="form-control styled-input d-flex justify-content-center"
                   v-model="year"
-                  placeholder="year"
-                />
+                  placeholder="year" />
               </div>
             </div>
             <div v-if="addSectionNumber === 1">
@@ -306,8 +278,7 @@
                   type="text"
                   class="form-control styled-input d-flex justify-content-center"
                   v-model="month"
-                  placeholder="month"
-                />
+                  placeholder="month" />
               </div>
             </div>
             <div v-if="addSectionNumber === 2">
@@ -317,8 +288,7 @@
                   type="text"
                   class="form-control styled-input d-flex justify-content-center"
                   v-model="descr"
-                  placeholder="description"
-                />
+                  placeholder="description" />
               </div>
             </div>
             <div v-if="addSectionNumber === 3">
@@ -328,8 +298,7 @@
                   type="text"
                   class="form-control styled-input d-flex justify-content-center"
                   v-model="categ"
-                  placeholder="category"
-                />
+                  placeholder="category" />
               </div>
             </div>
             <div v-if="addSectionNumber === 4">
@@ -339,8 +308,7 @@
                   type="text"
                   class="form-control styled-input d-flex justify-content-center"
                   v-model="totAm"
-                  placeholder="total amount"
-                />
+                  placeholder="total amount" />
               </div>
             </div>
             <div v-if="addSectionNumber === 5">
@@ -349,8 +317,7 @@
                 <div v-for="(user, index) in partec" :key="index">
                   <div class="d-flex justify-content-center w-100">
                     <div
-                      class="d-flex align-items-center p-3 partecipants-list-style"
-                    >
+                      class="d-flex align-items-center p-3 partecipants-list-style">
                       <div style="font-size: 17px">
                         username:&nbsp;&nbsp;<b>{{user.username}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;share:&nbsp;&nbsp;
                         <b>{{user.share}}&nbsp;&euro;</b>
@@ -359,8 +326,7 @@
                       <button
                         class="d-flex align-items-center p-1 remove-partec-button"
                         type="button"
-                        @click="removePartecipant(index)"
-                      >
+                        @click="removePartecipant(index)">
                         <span
                           class="material-symbols-outlined"
                           style="color: #be3939"
@@ -372,22 +338,19 @@
                 </div>
               </div>
               <div
-                class="d-flex flex-row justify-content-center align-items-center"
-              >
+                class="d-flex flex-row justify-content-center align-items-center">
                 <input
                   type="text"
                   class="form-control styled-input"
                   v-model="newUsername"
                   style="margin-right: 20px"
-                  list="usernamesss"
-                  placeholder="Partecipant"
-                />
-                <datalist id="usernamesss">
+                  list="usernames1"
+                  placeholder="Partecipant" />
+                <datalist id="usernames1">
                   <option
                     v-for="suggestion in filteredUsernames"
                     :key="suggestion"
-                    :value="suggestion"
-                  ></option>
+                    :value="suggestion"></option>
                 </datalist>
 
                 <input
@@ -395,13 +358,11 @@
                   class="form-control styled-input"
                   v-model="newShare"
                   style="margin-right: 20px"
-                  placeholder="Share"
-                />
+                  placeholder="Share" />
                 <button
                   class="d-flex align-items-center p-1 add-partec-button"
                   type="button"
-                  @click="addPartecipant()"
-                >
+                  @click="addPartecipant()">
                   <span
                     class="material-symbols-outlined"
                     style="color: rgb(40, 185, 76)"
@@ -435,12 +396,10 @@
                     <div
                       v-for="(user, index) in partec"
                       :key="index"
-                      style="margin-top: 20px"
-                    >
+                      style="margin-top: 20px">
                       <div class="d-flex justify-content-center w-100">
                         <div
-                          class="d-flex align-items-center p-3 partecipants-list-style"
-                        >
+                          class="d-flex align-items-center p-3 partecipants-list-style">
                           <div style="font-size: 17px">
                             username:&nbsp;&nbsp;<b>{{user.username}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;share:&nbsp;&nbsp;
                             <b>{{user.share}}&nbsp;&euro;</b>
@@ -457,32 +416,28 @@
                 type="button"
                 class="normal-button"
                 style="margin-right: 30px"
-                @click="changeField(-1)"
-              >
+                @click="changeField(-1)">
                 Go back
               </button>
               <button
                 type="button"
                 class="normal-button"
                 @click="changeField(1)"
-                v-if="!showFinishButton"
-              >
+                v-if="!showFinishButton">
                 Next
               </button>
               <button
                 type="button"
                 class="blue-button"
                 @click="completeAddition()"
-                v-if="showFinishButton"
-              >
+                v-if="showFinishButton">
                 Finish
               </button>
             </div>
           </div>
           <div
             v-if="error !== ''"
-            class="d-flex align-items-center p-3 error-style"
-          >
+            class="d-flex align-items-center p-3 error-style">
             <span class="material-symbols-outlined" style="color: #be3939"
               >error</span
             >
@@ -494,9 +449,8 @@
           <div>
             <button
               type="button"
-              class="d-flex align-items-center p-3 add-button"
-              @click="resetEverything()"
-            >
+              class="d-flex align-items-center p-3 main-button"
+              @click="resetEverything()">
               <span class="material-symbols-outlined">arrow_back</span>
               &ThinSpace; Discard
             </button>
@@ -507,29 +461,25 @@
               type="text"
               class="form-control styled-input"
               style="margin-bottom: 20px"
-              v-model="descr"
-            />
+              v-model="descr" />
             <h5 style="margin-bottom: 20px">Category</h5>
             <input
               type="text"
               class="form-control styled-input"
               style="margin-bottom: 20px"
-              v-model="categ"
-            />
+              v-model="categ" />
             <h5 style="margin-bottom: 20px">Total Amount</h5>
             <input
               type="text"
               class="form-control styled-input"
               style="margin-bottom: 20px"
-              v-model="totAm"
-            />
+              v-model="totAm" />
             <h5 style="margin-bottom: 20px">Partecipants</h5>
             <div class="d-flex flex-column">
               <div v-for="(user, index) in partec" :key="index">
                 <div class="d-flex justify-content-center w-100">
                   <div
-                    class="d-flex align-items-center p-3 partecipants-list-style"
-                  >
+                    class="d-flex align-items-center p-3 partecipants-list-style">
                     <div style="font-size: 17px">
                       username:&nbsp;&nbsp;<b>{{user.username}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;share:&nbsp;&nbsp;
                       <b>{{user.share}}&nbsp;&euro;</b>
@@ -538,8 +488,7 @@
                     <button
                       class="d-flex align-items-center p-1 remove-partec-button"
                       type="button"
-                      @click="removePartecipant(index)"
-                    >
+                      @click="removePartecipant(index)">
                       <span
                         class="material-symbols-outlined"
                         style="color: #be3939"
@@ -551,22 +500,19 @@
               </div>
             </div>
             <div
-              class="d-flex flex-row justify-content-center align-items-center"
-            >
+              class="d-flex flex-row justify-content-center align-items-center">
               <input
                 type="text"
                 class="form-control styled-input"
                 v-model="newUsername"
                 style="margin-right: 20px"
-                list="usernamesss"
-                placeholder="Partecipant"
-              />
-              <datalist id="usernamesss">
+                list="usernames2"
+                placeholder="Partecipant" />
+              <datalist id="usernames2">
                 <option
                   v-for="suggestion in filteredUsernames"
                   :key="suggestion"
-                  :value="suggestion"
-                ></option>
+                  :value="suggestion"></option>
               </datalist>
 
               <input
@@ -574,13 +520,11 @@
                 class="form-control styled-input"
                 v-model="newShare"
                 style="margin-right: 20px"
-                placeholder="Share"
-              />
+                placeholder="Share" />
               <button
                 class="d-flex align-items-center p-1 add-partec-button"
                 type="button"
-                @click="addPartecipant()"
-              >
+                @click="addPartecipant()">
                 <span
                   class="material-symbols-outlined"
                   style="color: rgb(40, 185, 76)"
@@ -592,8 +536,7 @@
               <button
                 type="button"
                 class="normal-button"
-                @click="completeModification()"
-              >
+                @click="completeModification()">
                 Modify Expense
               </button>
             </div>
@@ -601,8 +544,7 @@
 
           <div
             v-if="error !== ''"
-            class="d-flex align-items-center p-3 error-style"
-          >
+            class="d-flex align-items-center p-3 error-style">
             <span class="material-symbols-outlined" style="color: #be3939"
               >error</span
             >
@@ -612,8 +554,7 @@
 
         <div
           v-if="showBalanceSection"
-          class="d-flex flex-column sidebar-margin"
-        >
+          class="d-flex flex-column sidebar-margin">
           <div class="main-content-cover">
             <div class="text-container-style">
               <h2 style="margin-bottom: 40px; border-bottom: 1px solid #e9e9e9">
@@ -631,50 +572,47 @@
                 <label>Money Received:&nbsp;&nbsp;</label
                 >{{balance.moneyReceived}}&nbsp;&euro;
               </div>
-              <div>
+              <div v-if="balance.owedMoney !== 0">
                 <label>Owed money:&nbsp;&nbsp;</label
                 >{{balance.owedMoney}}&nbsp;&euro;
               </div>
-              <div>
+              <div v-if="balance.requestedMoney !== 0">
                 <label>Requested money:&nbsp;&nbsp;</label
                 >{{balance.requestedMoney}}&nbsp;&euro;
               </div>
             </div>
 
-            <div class="d-flex balance-input">
+            <div
+              class="d-flex align-items-center justify-content-center balance-input">
               <input
                 type="text"
                 class="form-control styled-input"
                 v-model="newUsername"
-                list="usernames"
+                list="usernames3"
                 style="
                   margin-right: 20px;
                   margin-bottom: 20px;
                   margin-top: 20px;
                 "
-                placeholder="username"
-              />
-              <datalist id="usernames">
+                placeholder="username" />
+              <datalist id="usernames3">
                 <option
                   v-for="suggestion in filteredUsernames"
                   :key="suggestion"
-                  :value="suggestion"
-                ></option>
+                  :value="suggestion"></option>
               </datalist>
               <button
                 type="button"
                 class="normal-button"
-                @click="updateBalance()"
-              >
-                Balance based on username selection
+                @click="updateBalance()">
+                <label>Balance&nbsp;for&nbsp;User</label>
               </button>
             </div>
           </div>
 
           <div
             v-if="error !== ''"
-            class="d-flex align-items-center p-3 error-style"
-          >
+            class="d-flex align-items-center p-3 error-style">
             <span class="material-symbols-outlined" style="color: #be3939"
               >error</span
             >
@@ -684,8 +622,7 @@
 
         <div
           v-if="showSpecificExpense"
-          class="d-flex flex-column sidebar-margin"
-        >
+          class="d-flex flex-column sidebar-margin">
           <div class="main-content-cover">
             <div class="text-container-style">
               <h2 style="margin-bottom: 40px; border-bottom: 1px solid #e9e9e9">
@@ -711,20 +648,17 @@
                 {{selectedExpense.expenses[0].totalAmount}} &euro;
               </div>
               <div
-                class="d-flex flex-row justify-content-center specificExp-style"
-              >
+                class="d-flex flex-row justify-content-center specificExp-style">
                 <div class="border-end pe-5">
                   <label>Partecipants:</label><br />
                   <div
                     v-for="(user, index) in selectedExpense.expenses[0].partecipants"
                     :key="index"
-                    style="margin-top: 20px"
-                  >
+                    style="margin-top: 20px">
                     <div class="d-flex justify-content-center w-100">
                       <div
                         class="d-flex align-items-center p-3 partecipants-list-style"
-                        style="background-color: #bbffc5"
-                      >
+                        style="background-color: #bbffc5">
                         <div>
                           username:&nbsp;&nbsp;<b>{{user.username}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;share:&nbsp;&nbsp;
                           <b>{{user.share}}&nbsp;&euro;</b>
@@ -738,13 +672,11 @@
                   <div
                     v-for="(refound, index) in selectedExpense.refounds"
                     :key="index"
-                    style="margin-top: 20px"
-                  >
+                    style="margin-top: 20px">
                     <div class="d-flex justify-content-center w-100">
                       <div
                         class="d-flex align-items-center p-3 partecipants-list-style"
-                        style="background-color: #ffe2e2"
-                      >
+                        style="background-color: #ffe2e2">
                         <div>
                           From:&nbsp;&nbsp;<b>{{refound.From}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;To:&nbsp;&nbsp;<b>{{refound.To}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;Amount:&nbsp;&nbsp;<b
                             >{{refound.amount}}&nbsp;&euro;</b
@@ -763,21 +695,18 @@
       <div
         v-if="showForbiddenSection"
         class="d-flex flex-column align-items-center justify-content-center"
-        style="height: 100vh"
-      >
+        style="height: 100vh">
         <div class="text-center">
           <div style="height: 350px">
             <img
               src="assets/images/error_403_image.png"
-              style="max-width: 100%; max-height: 100%"
-            />
+              style="max-width: 100%; max-height: 100%" />
           </div>
           <div style="width: fit-content; margin: auto">
             <button
               type="button"
               onclick="window.location.href='index.html'"
-              class="normal-button"
-            >
+              class="normal-button">
               Login
             </button>
           </div>
@@ -789,17 +718,14 @@
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
       integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous"></script>
   </body>
 </html>
