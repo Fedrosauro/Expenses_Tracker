@@ -29,7 +29,7 @@ def deleteUser(db_name, collection_name, username) -> None:
     collection = db[collection_name]
 
     # Delete the user based on the username
-    result = collection.delete_one({"username": username})
+    collection.delete_one({"username": username})
 
 client = MongoClient("mongodb://localhost:27017/")  # Update the connection string as needed
 
