@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Test Exam Web Application</title>
+    <title>Expenses Tracker</title>
 
     <meta charset="UTF-8" />
     <link rel="icon" href="/assets/images/logo.png" />
@@ -150,9 +150,7 @@
                       <b>{{expense._id}}</b>
                     </div>
                   </td>
-                  <td
-                    class="text-center"
-                    style="color: rgb(139, 139, 139);">
+                  <td class="text-center" style="color: rgb(139, 139, 139)">
                     {{expense.date}}
                   </td>
                   <td>
@@ -240,9 +238,6 @@
                 <div><label>Name:&nbsp;&nbsp;</label>{{currentUser.name}}</div>
                 <div>
                   <label>Surname:&nbsp;&nbsp;</label>{{currentUser.surname}}
-                </div>
-                <div>
-                  <label>Password:&nbsp;&nbsp;</label>{{currentUser.password}}
                 </div>
               </div>
             </div>
@@ -649,7 +644,7 @@
               </div>
               <div
                 class="d-flex flex-row justify-content-center specificExp-style">
-                <div class="border-end pe-5">
+                <div>
                   <label>Partecipants:</label><br />
                   <div
                     v-for="(user, index) in selectedExpense.expenses[0].partecipants"
@@ -667,7 +662,9 @@
                     </div>
                   </div>
                 </div>
-                <div style="margin-left: 50px">
+                <div
+                  v-if="selectedExpense.expenses[0].totalAmount"
+                  style="margin-left: 50px">
                   <label>Refunds:</label><br />
                   <div
                     v-for="(refound, index) in selectedExpense.refounds"

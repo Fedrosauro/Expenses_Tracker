@@ -63,9 +63,11 @@ const dashboard = createApp({
                 this.balance = await fetch("/api/balance/" + this.newUsername).then(response => response.json());
                 if (this.balance.owedMoney >= this.balance.requestedMoney) {
                     this.balance.owedMoney -= this.balance.requestedMoney;
+                    this.balance.owedMoney = parseFloat(this.balance.owedMoney.toFixed(2));
                     this.balance.requestedMoney = 0;
                 } else{
                     this.balance.requestedMoney -= this.balance.owedMoney;
+                    this.balance.requestedMoney = parseFloat(this.balance.requestedMoney.toFixed(2));
                     this.balance.owedMoney = 0;
                 }
             } else {

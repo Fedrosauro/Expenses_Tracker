@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 import random
 from datetime import datetime, timedelta
+import copy
 
 def filldata(db_name, collection_name, data) -> None:
     db = client[db_name]
@@ -41,7 +42,10 @@ def generate_random_user():
     username = random.choice(usernames)
     usernames.remove(username)  # Remove the selected username to ensure uniqueness
     name = random.choice(names)
+    names.remove(name)  # Remove the selected name to ensure uniqueness
     surname = random.choice(surnames)
+    surnames.remove(surname)  # Remove the selected surname to ensure uniqueness
+
     password = "12345"
     
     user_data = {
@@ -53,34 +57,31 @@ def generate_random_user():
     
     return user_data
 
-users_data = [generate_random_user() for _ in range(5)]
+users_data = [generate_random_user() for _ in range(7)]
 
-#usernames = ["Alice123", "Bob456", "Charlie789", "EvaSmith", "JohnDoe", "SophieM", "Maximus", "Lily123", "AlexW", "EmilyS"]
-
+usernames = ["Alice123", "Bob456", "Charlie789", "EvaSmith", "JohnDoe", "SophieM", "Maximus", "Lily123", "AlexW", "EmilyS"]
 
 def generate_random_expense():
+    usernames_copy = copy.copy(usernames)
     date = (datetime.now() - timedelta(days=random.randint(1, 365))).strftime("%Y-%m")  # Random date within the last year
     description = f"Expense for {date}"
     category = random.choice(["Groceries", "Sport", "Shopping", "Entertainment", "Travel", "Food", "Utilities"])
     total_amount = round(random.uniform(10.0, 200.0), 2)
     
-    # Handle refund expenses separately
-    if "refund" in description.lower() or category.lower() == "money refund":
-        participants = [
-            {"username": random.choice(usernames), "share": round(random.uniform(1.0, total_amount), 2)},
-            {"username": random.choice(usernames), "share": -round(random.uniform(1.0, total_amount), 2)}
-        ]
-    else:
-        participants = []
-        remaining_amount = total_amount
-        for i in range(random.randint(2, 5)):
-            if i == (len(participants) - 1):
-                # Last participant, make sure the remaining amount is assigned to avoid floating-point issues
-                share = round(remaining_amount, 2)
-            else:
-                share = round(random.uniform(1.0, remaining_amount), 2)
-            remaining_amount -= share
-            participants.append({"username": random.choice(usernames), "share": share})
+    participants = []
+    remaining_amount = total_amount
+    n = random.randint(2,5)
+    for j in range(n): 
+        if j == (n-1):
+            # Last participant, make sure the remaining amount is assigned to avoid floating-point issues
+            share = round(remaining_amount, 2)
+        else:
+            share = round(random.uniform(1.0, remaining_amount), 2)
+        remaining_amount -= share
+        print(usernames_copy)
+        username = random.choice(usernames_copy)
+        usernames_copy.remove(username)
+        participants.append({"username": username, "share": share})
     
     expense_data = {
         "date": date,
@@ -92,9 +93,9 @@ def generate_random_expense():
     
     return expense_data
 
-#expenses_data = [generate_random_expense() for _ in range(40)]
+expenses_data = [generate_random_expense() for _ in range(40)]
 
-users_data = [
+'''users_data = [
     {
         "username": "user1", 
         "name": "name1", 
@@ -155,12 +156,12 @@ expenses_data = [
         ]
     },
             
-]
+]'''
 
-#deleteCollection("mydatabase", "transactions")
+deleteCollection("mydatabase", "expenses")
 #deleteCollection("mydatabase", "users")
 #filldata("mydatabase", "users", users_data)
-#filldata("mydatabase", "expenses", expenses_data)
+filldata("mydatabase", "expenses", expenses_data)
 
 #deleteUser("mydatabase", "users", "adsfasdf")
 # List all databases

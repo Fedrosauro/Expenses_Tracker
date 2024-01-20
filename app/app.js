@@ -70,8 +70,8 @@ app.get("/api/budget/search", checkSignIn, query('q').notEmpty().escape(), async
 });
 
 app.get("/api/budget/whoami/", checkSignIn, async (req, res) => { //CHECK OK
-    const { username, name, surname, password } = req.session.user;
-    res.json({ username, name, surname, password });
+    const { username, name, surname } = req.session.user;
+    res.json({ username, name, surname });
 });
 
 app.get("/api/budget/:year", checkSignIn, async (req, res) => {
@@ -167,7 +167,7 @@ app.get("/api/balance/", checkSignIn, async (req, res) => {
         if (expense.totalAmount === 0) {
             if (userShare < 0) {
                 moneyReceived -= userShare // - * - => +
-                requestedMoney -= userShare
+                requestedMoney += userShare
             } else {
                 moneySpent -= userShare
                 owedMoney -= userShare
@@ -189,6 +189,13 @@ app.get("/api/balance/", checkSignIn, async (req, res) => {
         }
         overallBalance = moneySpent + moneyReceived
     });
+
+    overallBalance = parseFloat(overallBalance.toFixed(2));
+    moneySpent = parseFloat(moneySpent.toFixed(2));
+    moneyReceived = parseFloat(moneyReceived.toFixed(2));
+    owedMoney = parseFloat(owedMoney.toFixed(2));
+    requestedMoney = parseFloat(requestedMoney.toFixed(2));
+
     res.json({ overallBalance, moneySpent, moneyReceived, owedMoney, requestedMoney });
 });
 
@@ -205,7 +212,7 @@ app.get("/api/balance/:id", checkSignIn, async (req, res) => {
         if (expense.totalAmount === 0) {
             if (userShare < 0) {
                 moneyReceived -= userShare // - * - => +
-                requestedMoney -= userShare
+                requestedMoney += userShare
             } else {
                 moneySpent -= userShare
                 if (req.params.id !== req.session.user.username) owedMoney -= userShare //caso limite in cui un user cerca il balance con se stesso
@@ -227,7 +234,14 @@ app.get("/api/balance/:id", checkSignIn, async (req, res) => {
         }
         overallBalance = moneySpent + moneyReceived
     });
-    res.json({ overallBalance, moneySpent, moneyReceived, owedMoney, requestedMoney });
+
+    overallBalance = parseFloat(overallBalance.toFixed(2));
+    moneySpent = parseFloat(moneySpent.toFixed(2));
+    moneyReceived = parseFloat(moneyReceived.toFixed(2));
+    owedMoney = parseFloat(owedMoney.toFixed(2));
+    requestedMoney = parseFloat(requestedMoney.toFixed(2));
+
+    res.json({ overallBalance , moneySpent, moneyReceived, owedMoney, requestedMoney });
 });
 
 function getGiversReceiversLists(expense) {
@@ -262,6 +276,7 @@ function getRefoundList(ListG, listR) {
                     ListG[i].give -= listR[j].receive;
                     listR[j].receive = 0;
                 }
+                moneyGiven = parseFloat(moneyGiven.toFixed(2));
                 refounds.push({ "From": ListG[i].username, "To": listR[j].username, "amount": moneyGiven });
             }
         }
@@ -270,7 +285,6 @@ function getRefoundList(ListG, listR) {
 }
 
 app.get("/api/users/search", query('q').notEmpty().escape(), checkSignIn, async (req, res) => {
-    const query = (req.query.q).toLowerCase();
     const matchingUsers = await db.collection("users").find({ "username": query }).toArray();
 
     if (matchingUsers.length > 0) {

@@ -5,12 +5,10 @@
 }
 
 body {
-    margin: 0;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     background-color: var(--main-color);
     color: #2C3139;
-    max-width: 100%;
 }
 
 .sidebar {
@@ -110,6 +108,10 @@ tbody>tr:hover {
     transition: 0.1s ease-in-out;
 }
 
+.normal-button:hover {
+    background-color: #EFEFEF;
+}
+
 .blue-button {
     font-weight: 500;
     border: 1px solid #3181f7;
@@ -127,10 +129,6 @@ tbody>tr:hover {
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
-.normal-button:hover {
-    background-color: #EFEFEF;
-}
-
 .searchbar-bg {
     background-color: var(--main-color);
 }
@@ -140,7 +138,6 @@ tbody>tr:hover {
     border: none;
     border-radius: 30px;
     padding-left: 30px;
-    padding-right: 30px;
 }
 
 .search-button {
@@ -168,7 +165,7 @@ tbody>tr:hover {
     background-color: #C2E7FF;
 }
 
-.sidebar-text {
+.sidebar-button>label {
     padding-left: 10px;
 }
 
@@ -244,7 +241,6 @@ tbody>tr:hover {
 
     .sidebar {
         flex-direction: row !important;
-        justify-content: center !important;
         align-items: center;
         width: 100%;
         top: 0px;
@@ -254,8 +250,6 @@ tbody>tr:hover {
 
     .sidebar-button {
         margin: 10px !important;
-        padding: 10px;
-
     }
 
     .sidebar-text {
@@ -269,7 +263,6 @@ tbody>tr:hover {
     }
 
     .searchbar-bg {
-        display: flex;
         flex-direction: column;
     }
 
@@ -310,7 +303,6 @@ tbody>tr:hover {
     }
 
     .text-container-style {
-        font-size: inherit;
         display: flex;
         flex-direction: column;
     }
@@ -321,18 +313,22 @@ tbody>tr:hover {
     }
 
     .specificExp-style {
-        display: flex !important;
         flex-direction: column !important;
-        justify-content: center;
     }
 
     .specificExp-style>div {
-        padding: 0px !important;
         margin: 0px !important;
-        border: none !important;
+    }
+
+    .styled-input {
+        margin-right: 0px !important;
     }
 
     .partecipants-list-style>div {
         font-size: 14px;
+    }
+
+    h2 {
+        font-size: 22px;
     }
 }
