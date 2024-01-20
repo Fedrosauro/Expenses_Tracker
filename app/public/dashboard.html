@@ -131,13 +131,13 @@
             <table id="expenses" class="budget-table">
               <thead>
                 <tr class="text-center">
-                  <th class="">ID</th>
-                  <th class="">Date</th>
-                  <th class="">Description</th>
-                  <th class="">Category</th>
-                  <th class="">Tot.Amount</th>
-                  <th class="">Partecipants</th>
-                  <th class="">Selected</th>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Tot.Amount</th>
+                  <th>Partecipants</th>
+                  <th>Selected</th>
                 </tr>
               </thead>
 
@@ -147,24 +147,26 @@
                     <div
                       class="id-link"
                       @click="openExpense(expense._id, expense.date)">
-                      <b>{{expense._id}}</b>
+                      {{expense._id}}
                     </div>
                   </td>
                   <td class="text-center" style="color: rgb(139, 139, 139)">
                     {{expense.date}}
                   </td>
                   <td>
-                    <div class="desc-categ-container">
+                    <div class="descr-categ-container">
                       {{expense.description}}
                     </div>
                   </td>
                   <td>
-                    <div class="desc-categ-container">{{expense.category}}</div>
+                    <div class="descr-categ-container">
+                      {{expense.category}}
+                    </div>
                   </td>
                   <td
                     class="text-center"
                     style="font-size: 25px; font-weight: 700">
-                    <b>{{expense.totalAmount}} &euro;</b>
+                    {{expense.totalAmount}}&euro;
                   </td>
                   <td class="text-center">
                     <div
@@ -174,7 +176,7 @@
                       participant.share }}&nbsp;&euro;<br />
                     </div>
                   </td>
-                  <td class="">
+                  <td>
                     <div class="d-flex justify-content-center">
                       <input
                         type="checkbox"

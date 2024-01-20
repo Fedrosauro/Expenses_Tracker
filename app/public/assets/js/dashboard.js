@@ -157,8 +157,8 @@ const dashboard = createApp({
         async completeModification() {
             this.error = this.checkFields();
             if (this.error === '') {
-                let [year, month] = this.selectedExpense[0].date.split('-');
-                const urlPattern = "/api/budget/" + year + "/" + month + "/" + this.selectedExpense[0]._id;
+                let [year, month] = this.selectedExpense.expenses[0].date.split('-');
+                const urlPattern = "/api/budget/" + year + "/" + month + "/" + this.selectedExpense.expenses[0]._id;
                 const modifiedExpense = { description: this.descr, category: this.categ, totalAmount: this.totAm, partecipants: this.partec };
 
                 await fetch(urlPattern, {
@@ -176,6 +176,7 @@ const dashboard = createApp({
             if (this.descr === '') return "Description can't be empty";
             else if (this.categ === '') return "Category can't be empty";
             else if (Math.abs(parseFloat(this.totAm) - sumOfShares) > tolerance) return "Sum of shares is different from total";
+            else if (isNaN(parseFloat(this.totAm))) return "Total Amount is not a valid number";
             else return '';
         },
         async deleteExpense(expenseId, expenseDate) {

@@ -44,7 +44,7 @@ body {
     height: 100px;
     font-weight: 300;
     overflow: auto;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
 }
 
 th {
@@ -300,6 +300,10 @@ tbody>tr:hover {
 
     th {
         display: none;
+    }
+
+    .descr-categ-container{
+        width: auto;
     }
 
     .text-container-style {
