@@ -12,7 +12,6 @@ def printDB(db_name) -> None:
     collections = db.list_collection_names()
     print(f"Collections in {db_name}: {collections} \n")
 
-    # Iterate over each collection and print its documents
     for collection_name in collections:
         collection = db[collection_name]
         items = collection.find()
@@ -28,11 +27,9 @@ def deleteCollection(db_name, collection_name) -> None:
 def deleteUser(db_name, collection_name, username) -> None:
     db = client[db_name]
     collection = db[collection_name]
-
-    # Delete the user based on the username
     collection.delete_one({"username": username})
 
-client = MongoClient("mongodb://localhost:27017/")  # Update the connection string as needed
+client = MongoClient("mongodb://localhost:27017/")  
 
 usernames = ["Alice123", "Bob456", "Charlie789", "EvaSmith", "JohnDoe", "SophieM", "Maximus", "Lily123", "AlexW", "EmilyS"]
 names = ["Alice", "Bob", "Charlie", "Eva", "John", "Sophie", "Max", "Lily", "Alex", "Emily"]
@@ -95,7 +92,9 @@ def generate_random_expense():
 
 expenses_data = [generate_random_expense() for _ in range(40)]
 
-'''users_data = [
+'''
+INITIAL SMALL TEST DATA
+users_data = [
     {
         "username": "user1", 
         "name": "name1", 
@@ -158,12 +157,13 @@ expenses_data = [
             
 ]'''
 
-deleteCollection("mydatabase", "expenses")
 #deleteCollection("mydatabase", "users")
 #filldata("mydatabase", "users", users_data)
-filldata("mydatabase", "expenses", expenses_data)
 
-#deleteUser("mydatabase", "users", "adsfasdf")
+
+#deleteCollection("mydatabase", "expenses")
+#filldata("mydatabase", "expenses", expenses_data)
+
 # List all databases
 databases = client.list_database_names()
 print("Databases:", databases)

@@ -16,7 +16,7 @@ app.use(session({
     resave: false
 }));
 
-app.post("/api/auth/signin", async (req, res) => { //CHECK OK
+app.post("/api/auth/signin", async (req, res) => { 
     const user = await db.collection("users").findOne({ username: req.body.username });
     if (user && user.password === req.body.password) {
         req.session.user = user;
@@ -26,7 +26,7 @@ app.post("/api/auth/signin", async (req, res) => { //CHECK OK
     }
 });
 
-app.post("/api/auth/signup", async (req, res) => { //CHECK OK
+app.post("/api/auth/signup", async (req, res) => { 
     const existingUser = await db.collection("users").findOne({ username: req.body.username });
     if (existingUser) {
         res.status(409).json({ status: 'error', message: 'Username already taken' });
@@ -47,7 +47,7 @@ app.post("/api/auth/signup", async (req, res) => { //CHECK OK
     }
 });
 
-app.get("/api/budget/", checkSignIn, async (req, res) => { //CHECK OK
+app.get("/api/budget/", checkSignIn, async (req, res) => { 
     const userExpenses = await db.collection("expenses").find({ "partecipants.username": req.session.user.username }).toArray();
 
     res.status(200).json(userExpenses);
@@ -69,7 +69,7 @@ app.get("/api/budget/search", checkSignIn, query('q').notEmpty().escape(), async
     res.json({ expenses: filteredExpenses });
 });
 
-app.get("/api/budget/whoami/", checkSignIn, async (req, res) => { //CHECK OK
+app.get("/api/budget/whoami/", checkSignIn, async (req, res) => { 
     const { username, name, surname } = req.session.user;
     res.json({ username, name, surname });
 });
@@ -165,18 +165,18 @@ app.get("/api/balance/", checkSignIn, async (req, res) => {
     userExpenses.forEach(expense => {
         const userShare = expense.partecipants.find(participant => participant.username === req.session.user.username).share;
         if (expense.totalAmount === 0) {
-            if (userShare < 0) {
-                moneyReceived -= userShare // - * - => +
-                requestedMoney += userShare
-            } else {
+            if (userShare < 0) { // we're receiving money
+                moneyReceived -= userShare 
+                requestedMoney += userShare // it's "+" since we have to lower the requestedMoney and userShare < 0
+            } else { // we're refunding someone
                 moneySpent -= userShare
                 owedMoney -= userShare
             }
         } else {
             moneySpent -= userShare;
 
-            let [ListOfGivers, ListOfReceivers] = getGiversReceiversLists(expense);
-            let refounds = getRefoundList(ListOfGivers, ListOfReceivers);
+            let [ListOfGivers, ListOfReceivers] = getGiversReceiversLists(expense); 
+            let refounds = getRefoundList(ListOfGivers, ListOfReceivers); //basically which user has to pay money to other users
 
             refounds.forEach(refound => {
                 if (refound.From === req.session.user.username) {
@@ -211,11 +211,11 @@ app.get("/api/balance/:id", checkSignIn, async (req, res) => {
         const userShare = expense.partecipants.find(participant => participant.username === req.session.user.username).share;
         if (expense.totalAmount === 0) {
             if (userShare < 0) {
-                moneyReceived -= userShare // - * - => +
+                moneyReceived -= userShare 
                 requestedMoney += userShare
             } else {
                 moneySpent -= userShare
-                if (req.params.id !== req.session.user.username) owedMoney -= userShare //caso limite in cui un user cerca il balance con se stesso
+                if (req.params.id !== req.session.user.username) owedMoney -= userShare //case for which user does not search himself
             }
         } else {
             moneySpent -= userShare;
@@ -241,7 +241,7 @@ app.get("/api/balance/:id", checkSignIn, async (req, res) => {
     owedMoney = parseFloat(owedMoney.toFixed(2));
     requestedMoney = parseFloat(requestedMoney.toFixed(2));
 
-    res.json({ overallBalance , moneySpent, moneyReceived, owedMoney, requestedMoney });
+    res.json({ overallBalance, moneySpent, moneyReceived, owedMoney, requestedMoney });
 });
 
 function getGiversReceiversLists(expense) {
@@ -261,7 +261,7 @@ function getGiversReceiversLists(expense) {
     return [ListOfGivers, ListOfReceivers];
 }
 
-function getRefoundList(ListG, listR) {
+function getRefoundList(ListG, listR) { //starting from each user in the Givers List, we fill each user in the Receivers List
     let refounds = [];
     for (let j = 0; j < (listR.length); j++) {
         for (let i = 0; i < (ListG.length) && listR[j].receive !== 0; i++) {
@@ -294,13 +294,13 @@ app.get("/api/users/search", query('q').notEmpty().escape(), checkSignIn, async 
     }
 });
 
-app.get("/api/users/", checkSignIn, async (req, res) => { //CHECK OK
+app.get("/api/users/", checkSignIn, async (req, res) => { 
     const users = await db.collection("users").distinct("username");
 
     res.status(200).json(users);
 });
 
-app.get("/api/logout/", checkSignIn, async (req, res) => { //CHECK OK
+app.get("/api/logout/", checkSignIn, async (req, res) => { 
     req.session.user = null;
     res.status(200).send();
 });

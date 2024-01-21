@@ -62,9 +62,9 @@ const login = createApp({
                 }
             }
         },
-        changeSection(){
-          this.showSignInSection = false;
-          this.error = '';
+        changeSection() {
+            this.showSignInSection = false;
+            this.error = '';
         },
         resetValues() {
             this.error = '';

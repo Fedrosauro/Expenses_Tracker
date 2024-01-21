@@ -33,7 +33,7 @@ const dashboard = createApp({
         };
     },
     methods: {
-        async getExpenses() { //CHECK OK
+        async getExpenses() {  
             const response = await fetch("/api/budget/");
 
             if (response.ok) {
@@ -42,7 +42,7 @@ const dashboard = createApp({
                 this.showForbiddenSection = true;
             }
         },
-        async getBalanceSection() { //CHECK OK
+        async getBalanceSection() {
             this.newUsername = '';
             [this.balance, this.allUsernames] = await Promise.all([
                 fetch("/api/balance/").then(response => response.json()),
@@ -74,7 +74,7 @@ const dashboard = createApp({
                 this.error = 'User does not exist';
             }
         },
-        async getAboutMeSection() { //CHECK OK
+        async getAboutMeSection() { 
             this.showSpecificExpense = false;
             this.showModifySection = false;
             this.showAddSection = false;
@@ -82,16 +82,16 @@ const dashboard = createApp({
             this.showBalanceSection = false;
             this.showAboutMeSection = true;
         },
-        async performLogout() { //CHECK OK
+        async performLogout() { 
             if (await fetch("/api/logout/").then(response => response.ok)) {
                 location.reload();
                 window.location.replace("index.html");
             }
         },
-        shouldShowInput(options) { //CHECK OK
+        shouldShowInput(options) { 
             return options.includes(this.searchOption);
         },
-        async filterExpenses() { //CHECK OK
+        async filterExpenses() { 
             let response = '';
             if (this.searchOption === 'Query' && this.query !== '') {
                 response = await fetch("/api/budget/search?q=" + this.query);
@@ -282,7 +282,7 @@ const dashboard = createApp({
             this.addSectionNumber = 0;
             this.showFinishButton = false;
         },
-        async resetSearchValues() { //CHECK OK
+        async resetSearchValues() { 
             await this.getExpenses();
             this.query = '';
             this.year = '';
