@@ -93,31 +93,31 @@ def generate_random_expense():
 expenses_data = [generate_random_expense() for _ in range(40)]
 
 '''
-INITIAL SMALL TEST DATA
+INITIAL SMALL TEST DATA USED AT THE START OF THE PROJECT
 users_data = [
     {
         "username": "user1", 
         "name": "name1", 
         "surname": "surname1",
-        "password": "1234"
+        "password": "12345"
     },
     {
         "username": "user2", 
         "name": "name2", 
         "surname": "surname2",
-        "password": "1234"
+        "password": "12345"
     },
     {
         "username": "user3", 
         "name": "name3", 
         "surname": "surname3",
-        "password": "1234"
+        "password": "12345"
     },
     {
         "username": "user4", 
         "name": "name4", 
         "surname": "surname4",
-        "password": "1234"
+        "password": "12345"
     },
 ]
 
@@ -157,10 +157,12 @@ expenses_data = [
             
 ]'''
 
+#all users will have the same password: 12345
+#DELETE AND CREATION OF NEW USERS 
 #deleteCollection("mydatabase", "users")
 #filldata("mydatabase", "users", users_data)
 
-
+#DELETE AND CREATION OF NEW EXPENSES (no expenses refund done)
 #deleteCollection("mydatabase", "expenses")
 #filldata("mydatabase", "expenses", expenses_data)
 

@@ -12,7 +12,7 @@ const dashboard = createApp({
             showForbiddenSection: false,
             showSpecificExpense: false,
             balance: null,
-            allUsernames: [],
+            allUsernames: [], // used to display all users in a datalist when we have to select one user
             searchOption: 'Query',
             id: '',
             query: '',
@@ -27,13 +27,13 @@ const dashboard = createApp({
             newUsername: '',
             newShare: '',
             error: '',
-            addSectionNumber: 0,
-            showFinishButton: false,
+            addSectionNumber: 0, // used to show different sections when adding a new expense
+            showFinishButton: false, // showed in the resume section of the expense that we want to add
             currentUser: null,
         };
     },
     methods: {
-        async getExpenses() {  
+        async getExpenses() {
             const response = await fetch("/api/budget/");
 
             if (response.ok) {
@@ -65,7 +65,7 @@ const dashboard = createApp({
                     this.balance.owedMoney -= this.balance.requestedMoney;
                     this.balance.owedMoney = parseFloat(this.balance.owedMoney.toFixed(2));
                     this.balance.requestedMoney = 0;
-                } else{
+                } else {
                     this.balance.requestedMoney -= this.balance.owedMoney;
                     this.balance.requestedMoney = parseFloat(this.balance.requestedMoney.toFixed(2));
                     this.balance.owedMoney = 0;
@@ -74,7 +74,7 @@ const dashboard = createApp({
                 this.error = 'User does not exist';
             }
         },
-        async getAboutMeSection() { 
+        async getAboutMeSection() {
             this.showSpecificExpense = false;
             this.showModifySection = false;
             this.showAddSection = false;
@@ -82,16 +82,16 @@ const dashboard = createApp({
             this.showBalanceSection = false;
             this.showAboutMeSection = true;
         },
-        async performLogout() { 
+        async performLogout() {
             if (await fetch("/api/logout/").then(response => response.ok)) {
                 location.reload();
                 window.location.replace("index.html");
             }
         },
-        shouldShowInput(options) { 
+        shouldShowInput(options) {
             return options.includes(this.searchOption);
         },
-        async filterExpenses() { 
+        async filterExpenses() {
             let response = '';
             if (this.searchOption === 'Query' && this.query !== '') {
                 response = await fetch("/api/budget/search?q=" + this.query);
@@ -105,10 +105,10 @@ const dashboard = createApp({
 
             this.expenses = (await response.json()).expenses;
         },
-        isSelected(expenseId) {
+        isSelected(expenseId) { // used to show the buttons delete and modify of a transaction is selected if the checkbox 
             return this.selectedExpenseId === expenseId;
         },
-        toggleExpenseId(expenseId) {
+        toggleExpenseId(expenseId) { // used for the case in which a checkbox is selected and then unselected
             this.selectedExpenseId = this.selectedExpenseId === expenseId ? '' : expenseId;
         },
         async modifyExpense(expenseId, expenseDate) {
@@ -128,9 +128,6 @@ const dashboard = createApp({
 
             this.showBudgetsSection = false;
             this.showModifySection = true;
-        },
-        selectSuggestion(suggestion) {
-            this.newUsername = suggestion;
         },
         async addPartecipant() {
             this.error = '';
@@ -194,7 +191,7 @@ const dashboard = createApp({
             this.showBudgetsSection = false;
             this.showAddSection = true;
         },
-        async changeField(step) {
+        async changeField(step) { // function that takes into account at which stage we are when adding a new expense
             this.error = '';
             if (step === 1) {
                 if (this.addSectionNumber === 0 && !(/^[1-9]\d*$/).test(this.year)) {
@@ -207,6 +204,12 @@ const dashboard = createApp({
                     this.error = "Category can't be empty";
                 } else if (this.addSectionNumber === 4 && (this.totAm === '' || isNaN(parseFloat(this.totAm)) || parseFloat(this.totAm) < 0)) {
                     this.error = "Total Amount can't be empty or < 0";
+                } else if (this.addSectionNumber === 5) {
+                    let tolerance = 1e-8;
+                    let sumOfShares = this.partec.reduce((total, partecipant) => total + partecipant.share, 0);
+                    if (Math.abs(parseFloat(this.totAm) - sumOfShares) > tolerance) {
+                        this.error = 'Sum of shares is different from total';
+                    }
                 }
             }
 
@@ -225,26 +228,16 @@ const dashboard = createApp({
             }
         },
         async completeAddition() {
-            let tolerance = 1e-8;
-            if (this.addSectionNumber === 5) {
-                let sumOfShares = this.partec.reduce((total, partecipant) => total + partecipant.share, 0);
-                if (Math.abs(parseFloat(this.totAm) - sumOfShares) > tolerance) {
-                    this.error = 'Sum of shares is different from total';
-                }
-            }
+            const urlPattern = "/api/budget/" + this.year + "/" + ((parseInt(this.month) > 9) ? "" : "0") + this.month;
+            const newExpense = { description: this.descr, category: this.categ, totalAmount: parseFloat(this.totAm), partecipants: this.partec };
 
-            if (this.error === '') {
-                const urlPattern = "/api/budget/" + this.year + "/" + ((parseInt(this.month) > 9) ? "" : "0") + this.month;
-                const newExpense = { description: this.descr, category: this.categ, totalAmount: parseFloat(this.totAm), partecipants: this.partec };
+            await fetch(urlPattern, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newExpense),
+            });
 
-                await fetch(urlPattern, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newExpense),
-                });
-
-                await this.resetEverything();
-            }
+            await this.resetEverything();
         },
         async openExpense(expenseId, expenseDate) {
             let [year, month] = expenseDate.split('-');
@@ -282,7 +275,7 @@ const dashboard = createApp({
             this.addSectionNumber = 0;
             this.showFinishButton = false;
         },
-        async resetSearchValues() { 
+        async resetSearchValues() {
             await this.getExpenses();
             this.query = '';
             this.year = '';
