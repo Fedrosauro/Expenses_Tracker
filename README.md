@@ -9,7 +9,9 @@ In order to test the project:
 
 > Use `npm install express` if an error arises for the *express* module. Even tough it should not be necessary since it's already present in the *package.json* file
 
-Preview:
+> To generate users/expenses I've created a python script in which I use **PyMongo** to interact with MongoDB database from Python
+
+Web Application Preview (3rd image is from phone point of view):
 
 <img src="https://github.com/Fedrosauro/Expenses_Tracker/assets/67149530/255015d7-0a3c-4fef-95c4-850c13811809" alt="drawing" style="width:150px;"/>
 <img src="https://github.com/Fedrosauro/Expenses_Tracker/assets/67149530/7e373fb6-9622-4105-841b-f57d2cd37dea" alt="drawing" style="width:600px;"/>
