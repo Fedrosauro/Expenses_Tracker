@@ -9,7 +9,7 @@ In order to test the project:
 
 > Use `npm install express` if an error arises for the *express* module. Even tough it should not be necessary since it's already present in the *package.json* file
 
-> To generate users/expenses I've created a python script in which I use **PyMongo** to interact with MongoDB database from Python
+> To generate users/expenses I've created a python script in which I use **PyMongo** to interact with MongoDB database from Python. Keep in mind that useful data is already present in this repo
 
 Web Application Preview (3rd image is from phone point of view):
 
