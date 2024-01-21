@@ -3,8 +3,9 @@
 In order to test the project:
   1. Clone the Repository in a location of your choice
   2. Open VS-Code & Docker
-  3. type `docker compose up` in the terminal
-  4. Enjoy
+  3. Open the directory where you cloned the repo
+  4. type `docker compose up` in the terminal
+  5. Enjoy
 
 > Use `npm install express` if an error arises for the *express* module. Even tough it should not be necessary since it's already present in the *package.json* file
 
